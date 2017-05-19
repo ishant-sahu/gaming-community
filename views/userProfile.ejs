@@ -1,0 +1,289 @@
+<html >
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<base href="/"></base>
+
+	<link href="app/bootstrap\css\bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="app/css/style.css">
+	<link rel="stylesheet" href="app/css/autocomplete.css">
+	<link rel="stylesheet" type="text/css" href="app/search/foxycomplete.css">
+	
+	<script src="app/bootstrap/js/respond.js"></script>
+	<script src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+	<script src="../node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>
+	<script src="../node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
+	<script src="../node_modules/ng-file-upload/dist/ng-file-upload-all.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/header/services/searchService.js"></script>
+	<script src="app/header/controllers/search-controllers.js"></script>
+	<script src="app/header/controllers/navigation-controller.js"></script>
+	<script src="app/userProfile/app.js"></script>
+	<script src="app/home/app.js"></script>
+
+	<script src="app/userProfile/controllers/main-controller.js"></script>
+	<script src="app/home/controllers/home-controller.js"></script>
+	<script src="app/services/UserService.js"></script>
+	<script src="app/services/retrieveProfile.js"></script>
+
+	
+	<script>var user = JSON.parse('<%-JSON.stringify(user[0])%>');</script>
+	
+	
+	
+	
+</head>
+
+<body  style="margin-top:0px;" >
+	
+
+	
+
+
+	<div ng-app="app">
+
+		<div ng-include src="'app/header/views/header.html'"></div>
+
+
+	</div>
+	<!-- <div id="visitedProfile" ng-app="profile" ng-controller="MainController" ng-model="user" ng-init="user='<%-user[0]-%>'" >
+
+
+
+</div>	 -->
+
+
+
+
+
+
+<div class="container-fluid">
+
+	<div class="col-md-9">	
+		<div class="row">
+			<div class="col-md-4" id="profileLeft" ng-app="profile" ng-controller="MainController">
+				<img src="app/images/userImages/{{user.image}}" class="img-responsive">
+			</div>
+
+
+
+			<div class="col-md-8" id="profileCenter" ng-app="profile" ng-controller="MainController">
+				<div class="text-center" ><h1>{{user.displayName}}</h1></div>
+				<div class="text-center small"><h3>Lets the game begin</h3></div>
+				<div class="text-center small"><h5>Member since 23/06/2016</h5></div>
+			</div>
+
+		</div>
+		<hr>
+
+		<div class="row">
+			<div class="col-md-3">
+				<ul class="nav nav-pills nav-stacked">
+					<li class="nav-item active"><a href="#activities" data-toggle="pill">Activities</a></li>
+					<li class="nav-item "><a href="#followers" data-toggle="pill">Followers</a></li>
+					<li class="nav-item "><a href="#following" data-toggle="pill">Following</a></li>
+					<li class="nav-item "><a href="#bakchodi" data-toggle="pill">Bakchodi</a></li>
+				</ul>
+			</div>
+			<div class="col-md-9 tab-content">
+				<div id="activities" class="tab-pane active" ng-app="home" >
+					<div ng-controller="MainController" ng-show="storeDataForSharing()"></div>
+					<div ng-controller="HomeController">
+					<div  ng-repeat="activity in activityForProfile" >
+						<div class="row">
+
+							<div class="panel panel-default">
+
+								<div class="panel-heading" ng-if="activity.follow!=null">
+									<p style="margin-left:80%">{{activity.date | date:'MM/dd/yyyy hh:mm'}}</p>
+									<img style="width:50px;height:50px" src="app/images/userImages/{{activity.image}}">
+									<a>{{activity.userName}}</a>  started following
+
+								</div>	
+								<div style="margin-left:10%" ng-if="activity.follow!=null">
+
+									<div class="panel-body">
+										<img style="width:150px;height:150px" src="app/images/userImages/{{activity.follow.followerPhoto}}"> 
+										<a href="localhost:3000/profile/show/">{{activity.follow.followerName}}</a>
+									</div>
+									<br><br>
+
+								</div>
+
+
+
+								<div class="panel-heading" ng-if="activity.review!=null" >
+									<p style="margin-left:80%">{{activity.date | date:'MM/dd/yyyy hh:mm'}}</p>
+									<img style="width:50px;height:50px" src="app/images/userImages/{{activity.image}}">
+									<a>{{activity.userName}}</a> reviewed a game 
+
+
+									<span ng-repeat="i in getNumber(activity.review.rating*1) track by $index"> 
+										<img src="app/images/star-fill-lg.png"></span>
+
+									</div>
+									<div style="margin-left:10%" ng-if="activity.review!=null">
+
+										<div class="panel-body">
+											<img style="width:150px;height:150px" src="/uploads/{{activity.review.productPhoto}}"> 
+											<a href="">{{activity.review.productTitle}}</a>
+										</div>
+										<br><br>	
+
+									</div>
+
+
+								</div>
+
+								<div class="titleBox">
+									<button class="btn btn-success" ng-hide="checkIfUpvoted(activity.upvotes)" ng-click="postUpvote(activity.activityId)"><label>Upvote :{{activity.upvotes.length}}</label></button>
+									<!-- <button type="button" class="close" aria-hidden="true">&times;</button> -->
+									<button class="btn btn-warning" ng-show="checkIfUpvoted(activity.upvotes)" ng-click="removeUpvote(activity.activityId)"><label>Upvoted :{{activity.upvotes.length}}</label></button>
+
+								</div>
+
+								<div class="detailBox" style="margin-top:0px;margin-left:0px;">
+									<div class="titleBox">
+										<label>Comments</label>
+										<!-- <button type="button" class="close" aria-hidden="true">&times;</button> -->
+									</div>
+					<!-- <div class="commentBox">
+
+						<p class="taskDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+					</div> -->
+					<div class="actionBox">
+						<ul class="commentList" ng-repeat="comment in activity.comments">
+							<li>
+								<div class="commenterImage">
+									<img src="app/images/userImages/{{comment.commenterPhoto}}" />
+
+								</div>
+								<div>
+
+								</div class="commentText">
+								<a href="#">{{comment.commenterName}}</a>
+
+
+								<div class="commentText">
+									<p class="">{{comment.commentText}}</p> <span class="date sub-text">
+									on {{comment.date |date:'MM/dd/yyyy hh:mm'}}</span>
+								</div>
+							</li>
+						</ul>
+						<form class="form-inline" role="form">
+							<div class="form-group">
+								<input class="form-control" ng-model="commentData" type="text" placeholder="Your comments" />
+							</div>
+							<div class="form-group">
+								<button class="btn btn-default" ng-click="submitComment(activity.activityId,commentData)" >Add</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	</div>
+	<div id="followers" class="tab-pane"  ng-app="profile" ng-controller="MainController">
+
+		<table class="table">
+
+			<tr ng-repeat="loopUser in ProfileUser.followers">
+				<td >
+
+
+					<div >
+						{{loopUser.userName}}
+
+						<div ng-show="user.email=ProfileUser.email">
+							<button style="margin:2%" ng-click="follow(loopUser.userId,loopUser.userName,loopUser.email,'dummy')" ng-hide="checkIfLooperInMyFollowingList(loopUser.email,ProfileUser.following)" class="btn btn-primary">Follow</button>
+							<button style="margin:2%" ng-click="unfollow(loopUser.userId,loopUser.userName,loopUser.email,'dummy')" ng-show="checkIfLooperInMyFollowingList(loopUser.email,ProfileUser.following)" class="btn btn-info">Unfollow</button>
+						</div>
+					</div>
+				</td>
+
+
+			</tr>
+
+		</table>
+
+
+	</div>
+	<div id="following" class="tab-pane" ng-app="profile" ng-controller="MainController">
+		<table class="table">
+
+			<tr ng-repeat="loopUser in ProfileUser.following">
+				<td >
+					<div >
+
+
+						{{loopUser.userName}}
+
+						<button style="margin:2%" ng-click="unfollow(loopUser.userId,loopUser.userName,loopUser.email,'dummy')"  class="btn btn-info">
+							Unfollow</button>
+
+						</div>
+					</td>
+
+
+				</tr>
+
+			</table>
+		</div>
+		<div id="bakchodi" class="tab-pane">
+			bakchodi
+		</div>
+
+
+	</div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-3 col-sm-3">
+
+	<div id="profile" ng-app="profile" margin-top :400px;>
+		<div ng-controller="MainController">
+		</div>
+		<div ui-view></div>
+
+	</div>
+</div>
+
+
+</div>
+
+
+
+<script src="app/bootstrap/js/jquery-3.1.1.min.js"></script>
+<script src="app/bootstrap/js/bootstrap.min.js"></script>
+<!-- <script src="app/script/autocomplete.js"></script> -->
+<script src="app/search/foxycomplete.js"></script>
+<script src="app/search/searches.js"></script>
+<script >
+angular.bootstrap(document.getElementById("profile"), ['profile']);
+angular.bootstrap(document.getElementById("profileLeft"), ['profile']);
+angular.bootstrap(document.getElementById("profileCenter"), ['profile']);
+angular.bootstrap(document.getElementById("followers"), ['profile']);
+angular.bootstrap(document.getElementById("following"), ['profile']);
+angular.bootstrap(document.getElementById("activities"), ['home']);
+</script>
+
+
+
+
+</body>
+
+
+
+
+</html>

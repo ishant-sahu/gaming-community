@@ -1,0 +1,156 @@
+ <div>
+
+ 	<ul class="nav nav-tabs">
+ 		<li class="nav-item active" ><a href="#playstation"  data-toggle="tab" >Playstation</a></li>
+ 		<li class="nav-item "><a href="#xbox" data-toggle="tab">Xbox</a></li>
+ 		<li class="nav-item"><a href="#steam" data-toggle="tab">Steam</a></li>
+
+ 	</ul>
+
+ 	<div class="tab-content">
+ 		<div id="playstation" class="tab-pane active ">
+ 			<div ng-hide="psnAvail" >
+
+ 				<div ng-if="user.email=profileUser.email">
+ 					<form >
+ 						<div class="form-group">
+ 							<label for="review">Enter PSN ID</label>
+ 							<input class="form-control"  id="review" ng-model="psnid"></input>
+ 						</div>
+ 					</form>
+ 					<button class="btn btn-danger" ng-click="submitPSNId()">submit</button>
+ 				</div>
+ 			</div> 
+
+
+
+ 			<div ng-show="psnAvail" id="playstation" class="tab-pane active" >
+ 				<img src="{{psnData.avatarUrl}}" class="img-responsive" >
+ 				<div class="text-center"><h4>{{psnData.personalDetail.firstName}} {{psnData.personalDetail.lastName}}</h4></div>
+
+
+
+
+ 				<div class="table-responsiveness">
+
+
+ 					<table class="table table-striped table-bordered table-hover table-condensed">
+ 						<tbody>
+ 							<tr>
+ 								<th>Level</th>
+ 								<th>Progress</th>
+ 								<th><img src="app/images/Platinum-trophy.png" style="height:20px;width:20px"></th>
+ 								<th><img src="app/images/gold01.png" style="height:20px;width:20px"></th>
+ 								<th><img src="app/images/Silver-trophy.png" style="height:20px;width:20px"></th>
+ 								<th><img src="app/images/Bronze-trophy.png" style="height:20px;width:20px"></th>
+ 							</tr>
+ 							<tr>
+ 								<td>{{psnData.trophySummary.level}} </td>
+ 								<td>{{psnData.trophySummary.progress}}</td>
+ 								<td>{{psnData.trophySummary.earnedTrophies.platinum}}</td>
+ 								<td>{{psnData.trophySummary.earnedTrophies.gold}}</td>
+ 								<td class="warning">{{psnData.trophySummary.earnedTrophies.silver}}</td>
+ 								<td class="warning">{{psnData.trophySummary.earnedTrophies.bronze}}</td>
+ 							</tr>
+
+ 						</tbody>
+ 					</table>
+ 				</div>
+ 			</div> 
+ 		</div>
+
+
+ 		<div class="tab-pane" id="xbox">
+
+
+ 			<div ng-hide="xboxAvail" >
+
+ 				<div ng-if="user.email=profileUser.email">
+ 					<form >
+ 						<div class="form-group">
+ 							<label for="review">Enter Your Xbox GamerTag</label>
+ 							<input class="form-control"  id="review" ng-model="gamerTag"></input>
+ 						</div>
+ 					</form>
+ 					<button class="btn btn-danger" ng-click="submitXboxGamerTag()">submit</button>
+ 				</div>
+ 			</div> 
+
+ 			<div ng-show="xboxAvail" >
+ 				<img src="{{xboxData.GameDisplayPicRaw}}" style="margin-top:20px" class="img-responsive" >
+ 				<div class="text-center"><h4>{{xboxData.GameDisplayName}} </h4></div>
+
+ 				<div class="table-responsiveness">
+
+
+ 					<table class="table table-striped table-bordered table-hover table-condensed">
+ 						<tbody>
+ 							<tr>
+ 								<th>AccountTier</th>
+ 								<th>XboxOneRep</th>
+ 								<th>GamerScore</th>
+ 								
+ 							</tr>
+ 							<tr>
+ 								<td>{{xboxData.AccountTier}} </td>
+ 								<td>{{xboxData.XboxOneRep}}</td>
+ 								<td>{{xboxData.Gamerscore}}</td>
+ 								
+ 							</tr>
+
+ 						</tbody>
+ 					</table>
+ 				</div>
+
+
+
+ 			</div>
+ 		</div>
+
+ 		<div class="tab-pane" id="steam">
+ 			fuck it
+ 			
+ 		</div>
+ 	</div>
+ </div>
+
+ <div>
+ 	<div >
+
+ 		<table class="table">
+
+ 			<tr  ng-repeat="loopUser in users">
+ 				<td ><img style="height:50px;width:50px" src="app/images/userImages/{{loopUser[0].image}}">
+ 					<a style="color:black;cursor:pointer">{{loopUser[0].displayName}}</a>
+
+
+ 					<button style="margin:2%" ng-click="follow(loopUser[0].facebook.id,loopUser[0].displayName,loopUser[0].email,loopUser[0].image)" ng-hide="checkIfFollowing(loopUser[0].followers)" class="btn btn-primary">Follow</button>
+ 					<button style="margin:2%" ng-click="unfollow(loopUser[0].facebook.id,loopUser[0].displayName,loopUser[0].email,loopUser[0].image)" ng-show="checkIfFollowing(loopUser[0].followers)" class="btn btn-info">Unfollow</button>
+
+
+ 				</td>
+
+
+ 			</tr>
+
+ 		</table>
+
+ 		<table ng-if="users[0].google.email">
+
+ 			<tr  ng-repeat="friend in users[0].google.friendList">
+ 				<td >{{friend.friendName}}
+ 					<a ng-click="follow(friend.friendId,friend.friendName)" ng-hide="(friend.following=='1')">Follow</a>
+ 					<a ng-click="unfollow(friend.friendId,friend.friendName)" ng-show="(friend.following=='1')">Unfollow</a>
+
+ 				</td>
+
+
+ 			</tr>
+ 		</table>
+
+ 	</div>
+ </div>
+
+
+
+

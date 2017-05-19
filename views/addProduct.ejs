@@ -1,0 +1,167 @@
+<html ng-app="app">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="../app/bootstrap\css\bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../app/css/style.css">
+	<!-- <link rel="stylesheet" type="text/css" href="app/css/style-search.css"> -->
+	<script src="../app/bootstrap/js/respond.js"></script>
+	<script src="https://connect.facebook.net/en_US/sdk.js"></script>
+	
+	<script src="../app/js/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+	<script src="../node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>
+
+	<script src="../node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
+	<script src="../node_modules/ng-file-upload/dist/ng-file-upload-all.js"></script>
+	
+	<script src="../app/addProducts/controllers/add-product.js"></script>
+
+	<link rel="stylesheet" href="../app/css/autocomplete.css">
+
+	
+</head>
+<body  style="margin-top:0px;">
+	<nav class="navbar navbar-default" role="navigation" >
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Communtiy</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Link</a></li>
+				<li><a href="#">Link</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="col-sm-3 col-md-3" >
+				<form class="navbar-form" role="search">
+					
+				</form>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Link</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<div class="col-md-7" >
+		<div class="panel panel-default">
+			<div class="panel-heading"><h4 class="panel-title">Product Form</h4></div>
+			<div class="panel-body">
+				<form class="form-horizontal" method = "post" ng-controller="AddProductsController" ng-submit="addProducts()" role="form">
+					<div class="form-group ">
+						<label for="inputName" class="col-sm-2 control-label input-lg">Title</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control"  ng-model = "newProduct.Title" placeholder="Name">
+							<span class="help-block">Example block-level help text here.</span>
+						</div>
+
+
+					</div>
+					<div class="form-group">
+						<label for="inputEmail" class="col-sm-2 control-label input-sm">Genre</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="newProduct.Genre" placeholder="Email">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="inputMessage" class="col-sm-2 control-label">Description</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" ng-model="newProduct.Description" rows="6"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputMessage" class="col-sm-2 control-label">ReleaseDate</label>
+						<div class="col-sm-10">
+							<input class="form-control" ng-model="newProduct.ReleaseDate" rows="6"></input>
+						</div>
+					</div>
+
+
+								<!-- <div class="form-group">
+									<label for="inputPassword">Password</label>
+									<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+								</div> -->
+								<!-- <div class="form-group">
+									<label for="exampleInputFile">File input</label>
+									<input type="file" id="exampleInputFile">
+									<p class="help-block">Example block-level help text here.</p>
+								</div> -->
+								
+								<!-- <div class="checkbox col-sm-10"  id="checkbox" value="" >
+									<label>
+										<input type="checkbox"> I accept the terms and condition
+									</label>
+								</div> -->
+								<!-- <div class="radio col-sm-10" >
+									<label>
+										<input type="radio" name="radio" id="radio" value="option1" checked> I accept the terms and condition
+									</label>
+								</div> -->
+
+								<div class="form-group"> 
+									<label for="inputMessage" class="col-sm-2 control-label" >Platform</label>
+									<select class="form-control col-sm-2 control-label" ng-model="newProduct.platform" >
+
+										<option  value="ps4">PS4</option>
+										<option  value="xboxone">XBOX ONE</option>
+										<option  value="ps3">PS3</option>
+										<option  value="xbox360">XBOX 360</option>
+										<option  value="nintendo">NINTENDO</option>
+									</select>
+
+								</div>
+
+								<div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+								ngf-accept="'image/*'">Select</div>
+
+								<div class="col-sm-10  " style="padding-top:20px">
+									<input type="submit" id="submit" value="submit" class="btn btn-default">
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+
+			</body>
+
+			<script src="../app/bootstrap/js/jquery-3.1.1.min.js"></script>
+			<script src="../app/bootstrap/js/bootstrap.min.js"></script>
+			<script src="../app/script/autocomplete.js"></script>
+			</html>

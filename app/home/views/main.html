@@ -1,0 +1,101 @@
+<div >
+
+	<a  ng-if="incomingActivities.length > 0" ng-click="setNewActivities()">There are {{difference}} new Activities</a>
+	<br>
+
+	<div  ng-repeat="activity in activities" >
+		<div class="row">
+
+			<div class="panel panel-default">
+				
+				<div class="panel-heading" ng-if="activity.follow!=null">
+					<p style="margin-left:80%">{{activity.date | date:'MM/dd/yyyy hh:mm'}}</p>
+					<img style="width:50px;height:50px" src="app/images/userImages/{{activity.image}}">
+					<a>{{activity.userName}}</a>  started following
+
+				</div>	
+				<div style="margin-left:10%" ng-if="activity.follow!=null">
+					
+					<div class="panel-body">
+						<img style="width:150px;height:150px" src="app/images/userImages/{{activity.follow.followerPhoto}}"> 
+						<a href="localhost:3000/profile/show/">{{activity.follow.followerName}}</a>
+					</div>
+					<br><br>
+					
+				</div>
+
+
+
+				<div class="panel-heading" ng-if="activity.review!=null" >
+					<p style="margin-left:80%">{{activity.date | date:'MM/dd/yyyy hh:mm'}}</p>
+					<img style="width:50px;height:50px" src="app/images/userImages/{{activity.image}}">
+					<a>{{activity.userName}}</a> reviewed a game 
+					
+					
+					<span ng-repeat="i in getNumber(activity.review.rating*1) track by $index"> 
+						<img src="app/images/star-fill-lg.png"></span>
+
+					</div>
+					<div style="margin-left:10%" ng-if="activity.review!=null">
+
+						<div class="panel-body">
+							<img style="width:150px;height:150px" src="/uploads/{{activity.review.productPhoto}}"> 
+							<a href="">{{activity.review.productTitle}}</a>
+						</div>
+						<br><br>	
+
+					</div>
+
+
+				</div>
+
+				<div class="titleBox">
+						<button class="btn btn-success" ng-hide="checkIfUpvoted(activity.upvotes)" ng-click="postUpvote(activity.activityId)"><label>Upvote :{{activity.upvotes.length}}</label></button>
+						<!-- <button type="button" class="close" aria-hidden="true">&times;</button> -->
+					<button class="btn btn-warning" ng-show="checkIfUpvoted(activity.upvotes)" ng-click="removeUpvote(activity.activityId)"><label>Upvoted :{{activity.upvotes.length}}</label></button>
+
+					</div>
+
+				<div class="detailBox" style="margin-top:0px;margin-left:0px;">
+					<div class="titleBox">
+						<label>Comments</label>
+						<!-- <button type="button" class="close" aria-hidden="true">&times;</button> -->
+					</div>
+					<!-- <div class="commentBox">
+
+						<p class="taskDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+					</div> -->
+					<div class="actionBox">
+						<ul class="commentList" ng-repeat="comment in activity.comments">
+							<li>
+								<div class="commenterImage">
+									<img src="app/images/userImages/{{comment.commenterPhoto}}" />
+
+								</div>
+								<div>
+
+								</div class="commentText">
+								<a href="#">{{comment.commenterName}}</a>
+
+
+								<div class="commentText">
+									<p class="">{{comment.commentText}}</p> <span class="date sub-text">
+									on {{comment.date |date:'MM/dd/yyyy hh:mm'}}</span>
+								</div>
+							</li>
+						</ul>
+						<form class="form-inline" role="form">
+							<div class="form-group">
+								<input class="form-control" ng-model="commentData" type="text" placeholder="Your comments" />
+							</div>
+							<div class="form-group">
+								<button class="btn btn-default" ng-click="submitComment(activity.activityId,commentData)" >Add</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+

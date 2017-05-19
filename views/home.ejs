@@ -1,0 +1,90 @@
+<html >
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="app/bootstrap\css\bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="app/css/style.css">
+<!-- 	<link rel="stylesheet" href="app/css/autocomplete.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="app/css/style-search.css"> -->
+	<script src="app/bootstrap/js/respond.js"></script>
+	<script src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<script src="app/js/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+	<script src="../node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>
+	<script src="../node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
+	<script src="../node_modules/ng-file-upload/dist/ng-file-upload-all.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/header/services/searchService.js"></script>
+	<script src="app/header/controllers/search-controllers.js"></script>
+	<script src="app/header/controllers/navigation-controller.js"></script>
+	<script src="app/home/app.js"></script>
+	<script src="app/home/controllers/home-controller.js"></script>	
+	<script src="app/userProfile/app.js"></script>
+	<script src="app/userProfile/controllers/main-controller.js"></script>
+	<script src="app/services/UserService.js"></script>
+	<script src="app/services/retrieveProfile.js"></script>
+
+
+	
+	
+	<link rel="stylesheet" type="text/css" href="app/search/foxycomplete.css">
+
+
+	
+
+</head>
+
+<body  style="margin-top:0px;" >
+
+
+	<div ng-app="app" >
+		<div ng-app="app" ng-controller="NavigationController" ng-if="!loggedIn" ng-init="onLoad('<%- user.name %>','<%- user.lname %>','<%- user.email %>','<%- user._id %>','<%- user.userId %>','<%- user.fb %>','<%- user.google %>','<%- user.image %>','<%- user.displayName %>')" hidden>
+		</div>
+
+		<div ng-include src = "'app/header/views/header.html'"></div>  
+
+		
+
+	</div>  
+
+	<div class="container-fluid" style="margin-top:0px;">
+
+
+		<div class="col-md-3">
+
+		 </div>
+		
+<div class="col-md-6">
+	<div id="home" ng-app="home" style="margin-top:100px;" >
+		<div ng-controller="HomeController">
+		</div>
+		<div ui-view></div>
+	</div>
+</div>
+	
+	<div class="col-md-3"></div>
+
+</div>
+
+
+	
+	
+
+	<script src="app/bootstrap/js/jquery-3.1.1.min.js"></script>
+	<script src="app/bootstrap/js/bootstrap.min.js"></script>
+	<!-- <script src="app/script/autocomplete.js"></script> -->
+	<script src="app/search/foxycomplete.js"></script>
+	<script src="app/search/searches.js"></script>
+	<script >
+	angular.bootstrap(document.getElementById("home"), ['home']);
+	</script>
+	
+
+
+</body>
+
+
+
+
+</html>

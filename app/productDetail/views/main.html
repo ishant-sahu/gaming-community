@@ -1,0 +1,75 @@
+
+
+<div class="col-md-3 col-sm-6 col-xs-12  " >
+
+    <div >
+
+        <img src="/uploads/{{product[0].image }}" class="img-responsive">
+    </div>
+
+    <br>
+    <div >
+     <div  class="well" > 
+
+
+        <div  star-rating rating="starRating3" click="click3(param)" mouse-hover="mouseHover3(param)" mouse-leave="mouseLeave3(param)">
+        </div>
+        <!--  <div> <span class="label label-primary">Star Rating: {{starRating3}}</span></div> -->
+        <!-- <span class="label label-primary">Hover Rating: {{hoverRating3}}</span> -->
+
+        <!-- <textarea ng-model="review" ></textarea>-->
+        <form>
+            <div class="form-group">
+              <label for="review">Review:</label>
+              <textarea class="form-control"  id="review" ng-model="review"></textarea>
+          </div>
+      </form>
+      <button class="btn btn-danger" ng-click="submitReview()">submit</button>
+
+  </div>
+</div>
+</div>
+
+<div class="col-md-6 col-xs-12 col-md-offset-2 col-sm-6 ">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+         <div class="text-center text-uppercase  " ><h1>{{product[0].Title}}</h1></div>
+         <div class="small text-center "><h4>{{product[0].platform}}</h4>
+            <span > <h6> Release Date : 23-06-2016</h6></span>
+        </div>
+    </div>
+
+
+    <div class="panel-body"><p class="text-center text-justify">Developed by Japanese developer FromSoftware, DARK SOULS III is the latest chapter in the DARK SOULS series with its trademark sword and sorcery combat and rewarding action RPG gameplay. Players travel across a wide variety of locations in an interconnected world of unrelenting challenge and deep RPG gameplay as they search for a way to survive the coming apocalypse.</p></div>
+</div>
+
+<hr>
+
+<dl  class="dl-horizontal">
+    <dt >Genre</dt>
+    <dd >Action</dd>
+   
+    <dt>Developer</dt>
+    <dd >Rockstar North</dd>
+    
+    <dt>ESRB Rating</dt>
+    <dd >M</dd>
+    
+    <dt>Publishers</dt>
+    <dd >Rockstar Games</dd>
+
+</dl>
+<hr>
+</div>
+
+
+
+
+
+
+
+
+
+
+
